@@ -8,7 +8,8 @@ from src.auth.router import router as auth_router
 from tempfile import NamedTemporaryFile
 from celery.result import AsyncResult
 from src.tasks import transcribe_audio
-from celery_worker import celery
+from src.celery_app import celery
+import os
 app = FastAPI()
 # Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
@@ -30,9 +31,21 @@ app.add_middleware(
 app.include_router(project_router)
 app.include_router(auth_router)
 
+# @app.post("/whisper/")
+# async def upload_mp3(file: UploadFile = File(...)):
+#     with NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
+#         tmp.write(await file.read())
+#         tmp_path = tmp.name
+#
+#     task = transcribe_audio.delay(tmp_path)
+#     return {"task_id": task.id}
+UPLOAD_DIR = "/app/shared"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
 @app.post("/whisper/")
-async def upload_mp3(file: UploadFile = File(...)):
-    with NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
+async def upload_audio(file: UploadFile = File(...)):
+    suffix = "." + file.filename.split(".")[-1]
+    with NamedTemporaryFile(delete=False, suffix=suffix, dir=UPLOAD_DIR) as tmp:
         tmp.write(await file.read())
         tmp_path = tmp.name
 
