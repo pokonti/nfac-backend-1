@@ -5,6 +5,7 @@ from src.database import Base, engine, get_db
 from sqlalchemy.orm import Session
 from src.projects.router import router as project_router
 from src.auth.router import router as auth_router
+from src.assistant.api import router as assistant_router
 from tempfile import NamedTemporaryFile
 from celery.result import AsyncResult
 from src.tasks import transcribe_audio
@@ -30,6 +31,7 @@ app.add_middleware(
 
 app.include_router(project_router)
 app.include_router(auth_router)
+app.include_router(assistant_router)
 
 # @app.post("/whisper/")
 # async def upload_mp3(file: UploadFile = File(...)):
