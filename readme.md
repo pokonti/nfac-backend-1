@@ -26,3 +26,6 @@ Secrets needed in GitHub:
 * DOCKER_USERNAME
 * DOCKER_PASSWORD
 
+## System design
+
+[link](https://drive.google.com/file/d/1cPQ_ePRuy_P37neIYTDx-c6JSCebux5w/view?usp=sharing)
