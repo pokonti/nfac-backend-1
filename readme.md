@@ -29,3 +29,7 @@ Secrets needed in GitHub:
 ## System design
 
 [link](https://drive.google.com/file/d/1cPQ_ePRuy_P37neIYTDx-c6JSCebux5w/view?usp=sharing)
+
+# Deploy!!!
+
+http://142.93.225.150:8000/docs
