@@ -25,9 +25,8 @@ services:
     depends_on:
       - db
       - redis
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/mydb
-      REDIS_BROKER_URL: redis://redis:6379/0
+    env_file:
+      - .env
     volumes:
       - .:/app
       - shared_data:/app/shared
